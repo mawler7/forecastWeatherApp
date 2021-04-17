@@ -1,14 +1,18 @@
 package pl.sda.hibernate;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import pl.sda.hibernate.dao.HibernateLocationDao;
+import pl.sda.hibernate.dao.LocationDao;
 import pl.sda.hibernate.entity.Location;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class HibernateApp {
 
-    static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
+    private static LocationDao locationDao;
 
     public static void main(String[] args) {
 
@@ -16,24 +20,45 @@ public class HibernateApp {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Location.class)
                 .buildSessionFactory();
+        locationDao = new HibernateLocationDao(sessionFactory);
 
         System.out.println("\n\n--------------------->\n" +
                 "Hibernate Session Factory Created");
+
+
+        createNewLocation();
+        listAllLocations();
+
     }
 
-    private static void template() {
-        Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
-            tx = session.beginTransaction();
+    private static void createNewLocation() {
+        final Scanner scanner = new Scanner(System.in);
+        System.out.println("Nowa lokalizacja");
+        System.out.println("Podaj miasto");
+        final String city = scanner.nextLine();
+        System.out.println("Podaj region");
+        final String region = scanner.nextLine();
+        System.out.println("Podaj państwo");
+        final String country = scanner.nextLine();
+        System.out.println("Podaj długość geograficzną");
+        final int longitude = scanner.nextInt();
+        System.out.println("Podaj szerokość geograficzną");
+        final int latitude = scanner.nextInt();
 
-            // body here
+        final Location location = new Location(longitude, latitude, region, city, country);
 
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && !tx.getRollbackOnly()) {
-                tx.rollback();
-            }
-            throw ex;
-        }
+        locationDao.create(location);
+    }
+
+    private static void listAllLocations() {
+        final List<Location> locationList = locationDao.getAll();
+        locationList.forEach(location -> {
+            System.out.println("Localizacja:");
+            System.out.println("  miasto:" + location.getCity());
+            System.out.println("  region:" + location.getRegion());
+            System.out.println("  country:" + location.getCountry());
+            System.out.println("  długość geograficzna:" + location.getLongitude());
+            System.out.println("  szerokość geograficzna:" + location.getLatitude());
+        });
     }
 }
