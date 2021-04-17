@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import pl.sda.hibernate.entity.Location;
 
 public class HibernateApp {
 
@@ -13,7 +14,7 @@ public class HibernateApp {
 
         sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
-//                .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Location.class)
                 .buildSessionFactory();
 
         System.out.println("\n\n--------------------->\n" +
