@@ -113,6 +113,15 @@ class HibernateLocationDaoTest {
         assertNull(unexpectedLocation);
     }
 
+    @Test
+    void shouldGetAll() {
+        final List<Location> locationList = hibernateLocationDao.getAll();
+
+        assertEquals(2, locationList.size());
+        assertTrue(locationList.contains(testLocation1));
+        assertTrue(locationList.contains(testLocation2));
+    }
+
     @AfterEach
     void tearDown() {
         sessionFactory.close();
