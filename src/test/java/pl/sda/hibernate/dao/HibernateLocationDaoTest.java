@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.sda.hibernate.entity.Location;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HibernateLocationDaoTest {
@@ -37,8 +39,10 @@ class HibernateLocationDaoTest {
                 .buildSessionFactory();
         hibernateLocationDao = new HibernateLocationDao(sessionFactory);
 
-        hibernateLocationDao.create(TEST_LOCATION_1);
-        hibernateLocationDao.create(TEST_LOCATION_2);
+        final Location savedTestLocation1 = hibernateLocationDao.create(TEST_LOCATION_1);
+        TEST_LOCATION_1.setId(savedTestLocation1.getId());
+        final Location savedTestLocation2 = hibernateLocationDao.create(TEST_LOCATION_2);
+        TEST_LOCATION_2.setId(savedTestLocation2.getId());
     }
 
     @Test
@@ -66,6 +70,48 @@ class HibernateLocationDaoTest {
 
         assertEquals(expectedSize, actualSize);
         assertEquals(expectedLocation, actualLocation);
+    }
+
+    @Test
+    void shouldFindById() {
+
+        final Location actualLocation = hibernateLocationDao.findById(TEST_LOCATION_1.getId());
+
+        assertEquals(TEST_LOCATION_1, actualLocation);
+    }
+
+    @Test
+    void shouldUpdateLocation() {
+
+        final Location modifiedLocation = hibernateLocationDao.findById(TEST_LOCATION_2.getId());
+        modifiedLocation.setLatitude(1);
+        modifiedLocation.setLongitude(-1);
+        modifiedLocation.setCountry("modified country");
+        modifiedLocation.setCity("modified city");
+        modifiedLocation.setRegion("modified region");
+
+        final Location updatedLocation = hibernateLocationDao.update(modifiedLocation);
+
+        assertEquals(modifiedLocation, updatedLocation);
+        assertNotSame(modifiedLocation, updatedLocation);
+
+        final Location actualLocation = hibernateLocationDao.findById(updatedLocation.getId());
+        assertEquals(modifiedLocation, actualLocation);
+    }
+
+    @Test
+    void shouldDeleteLocation() {
+        final int expectedSize = hibernateLocationDao.getAll().size() - 1;
+
+        hibernateLocationDao.delete(TEST_LOCATION_1);
+
+        final List<Location> locationList = hibernateLocationDao.getAll();
+        final int actualSize = locationList.size();
+        assertEquals(expectedSize, actualSize);
+        assertFalse(locationList.contains(TEST_LOCATION_1));
+
+        final Location unexpectedLocation = hibernateLocationDao.findById(TEST_LOCATION_1.getId());
+        assertNull(unexpectedLocation);
     }
 
     @AfterEach
