@@ -3,7 +3,6 @@ package pl.sda.hibernate.dao;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.sda.hibernate.entity.Location;
@@ -14,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HibernateLocationDaoTest {
 
-    public static final Location TEST_LOCATION_1 = new Location(
+    public final Location testLocation1 = new Location(
             33,
             44,
             "test region",
             "test city",
             "test country"
     );
-    public static final Location TEST_LOCATION_2 = new Location(
+    public final Location testLocation2 = new Location(
             -21,
             -43,
             "test region 2",
@@ -39,10 +38,10 @@ class HibernateLocationDaoTest {
                 .buildSessionFactory();
         hibernateLocationDao = new HibernateLocationDao(sessionFactory);
 
-        final Location savedTestLocation1 = hibernateLocationDao.create(TEST_LOCATION_1);
-        TEST_LOCATION_1.setId(savedTestLocation1.getId());
-        final Location savedTestLocation2 = hibernateLocationDao.create(TEST_LOCATION_2);
-        TEST_LOCATION_2.setId(savedTestLocation2.getId());
+        final Location savedTestLocation1 = hibernateLocationDao.create(testLocation1);
+        testLocation1.setId(savedTestLocation1.getId());
+        final Location savedTestLocation2 = hibernateLocationDao.create(testLocation2);
+        testLocation2.setId(savedTestLocation2.getId());
     }
 
     @Test
@@ -75,15 +74,15 @@ class HibernateLocationDaoTest {
     @Test
     void shouldFindById() {
 
-        final Location actualLocation = hibernateLocationDao.findById(TEST_LOCATION_1.getId());
+        final Location actualLocation = hibernateLocationDao.findById(testLocation1.getId());
 
-        assertEquals(TEST_LOCATION_1, actualLocation);
+        assertEquals(testLocation1, actualLocation);
     }
 
     @Test
     void shouldUpdateLocation() {
 
-        final Location modifiedLocation = hibernateLocationDao.findById(TEST_LOCATION_2.getId());
+        final Location modifiedLocation = hibernateLocationDao.findById(testLocation2.getId());
         modifiedLocation.setLatitude(1);
         modifiedLocation.setLongitude(-1);
         modifiedLocation.setCountry("modified country");
@@ -103,14 +102,14 @@ class HibernateLocationDaoTest {
     void shouldDeleteLocation() {
         final int expectedSize = hibernateLocationDao.getAll().size() - 1;
 
-        hibernateLocationDao.delete(TEST_LOCATION_1);
+        hibernateLocationDao.delete(testLocation1);
 
         final List<Location> locationList = hibernateLocationDao.getAll();
         final int actualSize = locationList.size();
         assertEquals(expectedSize, actualSize);
-        assertFalse(locationList.contains(TEST_LOCATION_1));
+        assertFalse(locationList.contains(testLocation1));
 
-        final Location unexpectedLocation = hibernateLocationDao.findById(TEST_LOCATION_1.getId());
+        final Location unexpectedLocation = hibernateLocationDao.findById(testLocation1.getId());
         assertNull(unexpectedLocation);
     }
 
