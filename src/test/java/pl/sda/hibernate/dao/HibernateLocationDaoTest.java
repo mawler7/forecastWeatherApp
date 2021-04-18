@@ -122,6 +122,7 @@ class HibernateLocationDaoTest {
         assertTrue(locationList.contains(testLocation2));
     }
 
+
     @AfterEach
     void tearDown() {
         sessionFactory.close();
