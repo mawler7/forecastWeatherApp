@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -33,7 +35,7 @@ public class WeatherListing {
         JSONObject obj = new JSONObject(getWeatherListing());
         JSONArray list = obj.getJSONArray("list");
         JSONObject jsonObject = list.getJSONObject(0).getJSONObject("main");
-        System.out.println(jsonObject.getDouble("temp"));
+        System.out.println(jsonObject.getInt("temp") -273);
 
     }
 
@@ -67,6 +69,26 @@ public class WeatherListing {
         System.out.println(jsonObject.getDouble("deg"));
 
     }
+
+//    http://api.openweathermap.org/data/2.5/weather?q=Pozna%C5%84&appid=2b1e5d818b4502df2a272d1989370f4e
+
+
+
+//    public static String getSelectedName() throws IOException, URISyntaxException {
+//        String uri = "https://api.openweathermap.org/data/2.5/";
+//        List<NameValuePair> parameters = new ArrayList<>();
+//        parameters.add(new BasicNameValuePair("weather?q",getSelectedCity()));
+//        parameters.add(new BasicNameValuePair("appid",apiKey));
+//        return makeAPICall(uri, parameters);
+//    }
+//
+//    public static getSelectedCity(){
+//        Scanner value = new Scanner(System.in);
+//        String selectedCity = value.nextLine();
+//        return selectedCity;
+//    }
+
+
 
     public static String getWeatherListing() throws IOException, URISyntaxException {
         String uri = "https://api.openweathermap.org/data/2.5/find";

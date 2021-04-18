@@ -20,7 +20,7 @@ public class WeatherMeasurements {
     @Basic(optional = false)
     private double windDirection;
 
-    public WeatherMeasurements(double temperature, double pressure, double humidity, double windSpeed, double windDirection) {
+    public WeatherMeasurements(int temperature, double pressure, double humidity, double windSpeed, double windDirection) {
         this.temperature = temperature;
         this.pressure = pressure;
         this.humidity = humidity;
