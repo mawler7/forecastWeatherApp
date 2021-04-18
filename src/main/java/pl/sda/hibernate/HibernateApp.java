@@ -25,14 +25,22 @@ public class HibernateApp {
                 .buildSessionFactory();
         locationDao = new HibernateLocationDao(sessionFactory);
 
-        System.out.println("\n\n--------------------->\n" +
-                "Hibernate Session Factory Created");
+        System.out.println("\n\n===TEMPERATURE===");
 
 
-        String weatherListing = WeatherListing.getWeatherListing();
-        WeatherListing.getWeather();
-//        createNewLocation();
-//        listAllLocations();
+        System.out.print("|City: ");
+        WeatherListing.getCity();
+        System.out.print("|Temperature: ");
+        WeatherListing.getTemperature();
+        System.out.print("|Pressure: ");
+        WeatherListing.getPressure();
+        System.out.print("|Humidity: ");
+        WeatherListing.getHumidity();
+        System.out.print("|Wind speed: ");
+        WeatherListing.getWindSpeed();
+        System.out.print("|Wind direction: ");
+        WeatherListing.getWindDirection();
+        System.out.println("=========================");
 
     }
 

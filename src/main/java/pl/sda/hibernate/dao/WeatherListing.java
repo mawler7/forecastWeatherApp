@@ -21,7 +21,7 @@ public class WeatherListing {
 
     private static String apiKey = "2b1e5d818b4502df2a272d1989370f4e";
 
-    public static void getWeather() throws IOException, URISyntaxException {
+    public static void getCity() throws IOException, URISyntaxException {
         JSONObject obj = new JSONObject(getWeatherListing());
         JSONArray list = obj.getJSONArray("list");
         JSONObject jsonObject = list.getJSONObject(0);
@@ -29,11 +29,50 @@ public class WeatherListing {
 
     }
 
+    public static void getTemperature() throws IOException, URISyntaxException {
+        JSONObject obj = new JSONObject(getWeatherListing());
+        JSONArray list = obj.getJSONArray("list");
+        JSONObject jsonObject = list.getJSONObject(0).getJSONObject("main");
+        System.out.println(jsonObject.getDouble("temp"));
+
+    }
+
+    public static void getPressure() throws IOException, URISyntaxException {
+        JSONObject obj = new JSONObject(getWeatherListing());
+        JSONArray list = obj.getJSONArray("list");
+        JSONObject jsonObject = list.getJSONObject(0).getJSONObject("main");
+        System.out.println(jsonObject.getDouble("pressure"));
+
+    }
+
+    public static void getHumidity() throws IOException, URISyntaxException {
+        JSONObject obj = new JSONObject(getWeatherListing());
+        JSONArray list = obj.getJSONArray("list");
+        JSONObject jsonObject = list.getJSONObject(0).getJSONObject("main");
+        System.out.println(jsonObject.getDouble("humidity"));
+
+    }
+
+    public static void getWindSpeed() throws IOException, URISyntaxException {
+        JSONObject obj = new JSONObject(getWeatherListing());
+        JSONArray list = obj.getJSONArray("list");
+        JSONObject jsonObject = list.getJSONObject(0).getJSONObject("wind");
+        System.out.println(jsonObject.getDouble("speed"));
+
+    }
+    public static void getWindDirection() throws IOException, URISyntaxException {
+        JSONObject obj = new JSONObject(getWeatherListing());
+        JSONArray list = obj.getJSONArray("list");
+        JSONObject jsonObject = list.getJSONObject(0).getJSONObject("wind");
+        System.out.println(jsonObject.getDouble("deg"));
+
+    }
+
     public static String getWeatherListing() throws IOException, URISyntaxException {
         String uri = "https://api.openweathermap.org/data/2.5/find";
         List<NameValuePair> parameters = new ArrayList<>();
-        parameters.add(new BasicNameValuePair("lat","55.5"));
-        parameters.add(new BasicNameValuePair("lon","37.5"));
+        parameters.add(new BasicNameValuePair("lat","52.40"));
+        parameters.add(new BasicNameValuePair("lon","16.9252"));
         parameters.add(new BasicNameValuePair("cnt","10"));
         parameters.add(new BasicNameValuePair("appid",apiKey));
         return makeAPICall(uri, parameters);
@@ -55,7 +94,6 @@ public class WeatherListing {
         CloseableHttpResponse response = client.execute(request);
 
         try {
-            System.out.println(response.getStatusLine());
             HttpEntity entity = response.getEntity();
             response_content = EntityUtils.toString(entity);
             EntityUtils.consume(entity);

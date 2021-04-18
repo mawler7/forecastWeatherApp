@@ -18,14 +18,14 @@ class HibernateWeatherMeasurmentsDaoTest {
             1000,
             25,
             10,
-            "NW"
+            111
     );
     public final WeatherMeasurements testWeatherMeasurements2 = new WeatherMeasurements(
             -10,
             1025,
             50,
             20,
-            "SE"
+            114
     );
 
     private HibernateWeatherMeasurmentsDao hibernateWeatherMeasurmentsDao;
@@ -50,7 +50,7 @@ class HibernateWeatherMeasurmentsDaoTest {
         testWeatherMeasurements.setPressure(1005);
         testWeatherMeasurements.setHumidity(50);
         testWeatherMeasurements.setWindSpeed(10);
-        testWeatherMeasurements.setWindDirection("WE");
+        testWeatherMeasurements.setWindDirection(112);
 
 
         final int expectedSize = hibernateWeatherMeasurmentsDao.getAll().size() + 1;
@@ -82,7 +82,7 @@ class HibernateWeatherMeasurmentsDaoTest {
         modifiedWeatherMeasurements.setPressure(30);
         modifiedWeatherMeasurements.setHumidity(45);
         modifiedWeatherMeasurements.setWindSpeed(20);
-        modifiedWeatherMeasurements.setWindDirection("SE");
+        modifiedWeatherMeasurements.setWindDirection(110);
 
         final WeatherMeasurements updatedWeatherMeasurements = hibernateWeatherMeasurmentsDao.update(modifiedWeatherMeasurements);
 

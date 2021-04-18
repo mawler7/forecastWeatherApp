@@ -12,15 +12,15 @@ public class WeatherMeasurements {
     @Basic(optional = false)
     private double temperature;
     @Basic(optional = false)
-    private int pressure;
+    private double pressure;
     @Basic(optional = false)
     private double humidity;
     @Basic(optional = false)
     private double windSpeed;
     @Basic(optional = false)
-    private String windDirection;
+    private double windDirection;
 
-    public WeatherMeasurements(double temperature, int pressure, double humidity, double windSpeed, String windDirection) {
+    public WeatherMeasurements(double temperature, double pressure, double humidity, double windSpeed, double windDirection) {
         this.temperature = temperature;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -46,11 +46,11 @@ public class WeatherMeasurements {
         this.temperature = temperature;
     }
 
-    public int getPressure() {
+    public double getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
+    public void setPressure(double pressure) {
         this.pressure = pressure;
     }
 
@@ -70,11 +70,11 @@ public class WeatherMeasurements {
         this.windSpeed = windSpeed;
     }
 
-    public String getWindDirection() {
+    public double getWindDirection() {
         return windDirection;
     }
 
-    public void setWindDirection(String windDirection) {
+    public void setWindDirection(double windDirection) {
         this.windDirection = windDirection;
     }
 
