@@ -10,8 +10,6 @@ import java.util.List;
 
 public class HibernateServicesDao implements ServicesDao {
 
-    private static String apiKey = "2b1e5d818b4502df2a272d1989370f4e";
-
     private final SessionFactory sessionFactory;
 
     public HibernateServicesDao(SessionFactory sessionFactory) {

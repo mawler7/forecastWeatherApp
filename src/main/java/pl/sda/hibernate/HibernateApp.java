@@ -4,8 +4,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import pl.sda.hibernate.dao.HibernateLocationDao;
 import pl.sda.hibernate.dao.LocationDao;
+import pl.sda.hibernate.dao.WeatherListing;
 import pl.sda.hibernate.entity.Location;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +17,7 @@ public class HibernateApp {
     private static SessionFactory sessionFactory;
     private static LocationDao locationDao;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, URISyntaxException {
 
         sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
@@ -26,8 +29,10 @@ public class HibernateApp {
                 "Hibernate Session Factory Created");
 
 
-        createNewLocation();
-        listAllLocations();
+        String weatherListing = WeatherListing.getWeatherListing();
+        WeatherListing.getWeather();
+//        createNewLocation();
+//        listAllLocations();
 
     }
 
