@@ -5,7 +5,7 @@ import pl.sda.hibernate.entity.WeatherMeasurements;
 
 import java.util.List;
 
-public interface WeatherMeasurmentsDao {
+public interface WeatherMeasurementsDao {
 
     WeatherMeasurements create(WeatherMeasurements weatherMeasurements);
     WeatherMeasurements update(WeatherMeasurements weatherMeasurements);

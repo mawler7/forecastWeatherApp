@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import pl.sda.hibernate.dao.HibernateLocationDao;
 import pl.sda.hibernate.dao.LocationDao;
+import pl.sda.hibernate.dao.PollutionListing;
 import pl.sda.hibernate.dao.WeatherListing;
 import pl.sda.hibernate.entity.Location;
 
@@ -25,9 +26,10 @@ public class HibernateApp {
                 .buildSessionFactory();
         locationDao = new HibernateLocationDao(sessionFactory);
 
-        System.out.println("\n\n===TEMPERATURE===");
+        System.out.println("\n\n===READY?===");
 
 
+        WeatherListing.getCity();
         System.out.print("|City: ");
         WeatherListing.getCity();
         System.out.print("|Temperature: ");
@@ -41,6 +43,30 @@ public class HibernateApp {
         System.out.print("|Wind direction: ");
         WeatherListing.getWindDirection();
         System.out.println("=========================");
+       // System.out.print("|City Latitude: ");
+       // WeatherListing.getLatitude();
+       // System.out.print("|City Longitude: ");
+       // WeatherListing.getLongitude();
+        System.out.println("=========================");
+        System.out.print("|City CarbonMonoxide: ");
+        PollutionListing.getCarbonMonoxide();
+        System.out.print("|City NitrogenMonoxide: ");
+        PollutionListing.getNitrogenMonoxide();
+        System.out.print("|City NitrogenDioxide: ");
+        PollutionListing.getNitrogenDioxide();
+        System.out.print("|City Ozone: ");
+        PollutionListing.getOzone();
+        System.out.print("|City Sulphur Dioxide: ");
+        PollutionListing.getSulphurDioxide();
+        System.out.print("|City Ammonia: ");
+        PollutionListing.getAmmonia();
+        System.out.print("|City FineParticulateMatter: ");
+        PollutionListing.getFineParticulateMatter();
+        System.out.print("|City CoarseParticulateMatter: ");
+        PollutionListing.getCoarseParticulateMatter();
+        System.out.println("=========================");
+        System.out.println("<<<<END END END END>>>>>");
+
 
     }
 
@@ -74,4 +100,5 @@ public class HibernateApp {
             System.out.println("  szerokość geograficzna:" + location.getLatitude());
         });
     }
+
 }

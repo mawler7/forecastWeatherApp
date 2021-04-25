@@ -8,10 +8,10 @@ import pl.sda.hibernate.entity.WeatherMeasurements;
 
 import java.util.List;
 
-public class HibernateWeatherMeasurmentsDao implements WeatherMeasurmentsDao{
+public class HibernateWeatherMeasurementsDao implements WeatherMeasurementsDao {
     private final SessionFactory sessionFactory;
 
-    public HibernateWeatherMeasurmentsDao(SessionFactory sessionFactory) {
+    public HibernateWeatherMeasurementsDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

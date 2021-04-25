@@ -4,14 +4,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.sda.hibernate.entity.Location;
 import pl.sda.hibernate.entity.WeatherMeasurements;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HibernateWeatherMeasurmentsDaoTest {
+class HibernateWeatherMeasurementsDaoTest {
 
     public final WeatherMeasurements testWeatherMeasurements1 = new WeatherMeasurements(
             25,
@@ -28,7 +27,7 @@ class HibernateWeatherMeasurmentsDaoTest {
             114
     );
 
-    private HibernateWeatherMeasurmentsDao hibernateWeatherMeasurmentsDao;
+    private HibernateWeatherMeasurementsDao hibernateWeatherMeasurementsDao;
     private SessionFactory sessionFactory;
 
     @BeforeEach
@@ -38,9 +37,9 @@ class HibernateWeatherMeasurmentsDaoTest {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(WeatherMeasurements.class)
                 .buildSessionFactory();
-        hibernateWeatherMeasurmentsDao = new HibernateWeatherMeasurmentsDao(sessionFactory);
-        hibernateWeatherMeasurmentsDao.create(testWeatherMeasurements1);
-        hibernateWeatherMeasurmentsDao.create(testWeatherMeasurements2);
+        hibernateWeatherMeasurementsDao = new HibernateWeatherMeasurementsDao(sessionFactory);
+        hibernateWeatherMeasurementsDao.create(testWeatherMeasurements1);
+        hibernateWeatherMeasurementsDao.create(testWeatherMeasurements2);
     }
 
     @Test
@@ -53,12 +52,12 @@ class HibernateWeatherMeasurmentsDaoTest {
         testWeatherMeasurements.setWindDirection(112);
 
 
-        final int expectedSize = hibernateWeatherMeasurmentsDao.getAll().size() + 1;
+        final int expectedSize = hibernateWeatherMeasurementsDao.getAll().size() + 1;
 
-        final WeatherMeasurements savedWeatherMeasurements = hibernateWeatherMeasurmentsDao.create(testWeatherMeasurements);
+        final WeatherMeasurements savedWeatherMeasurements = hibernateWeatherMeasurementsDao.create(testWeatherMeasurements);
 
-        final WeatherMeasurements actualWeatherMeasurements = hibernateWeatherMeasurmentsDao.findById(savedWeatherMeasurements.getId());
-        final int actualSize = hibernateWeatherMeasurmentsDao.getAll().size();
+        final WeatherMeasurements actualWeatherMeasurements = hibernateWeatherMeasurementsDao.findById(savedWeatherMeasurements.getId());
+        final int actualSize = hibernateWeatherMeasurementsDao.getAll().size();
 
         final WeatherMeasurements expectedWeatherMeasurements = new WeatherMeasurements();
         expectedWeatherMeasurements.setId(savedWeatherMeasurements.getId());
@@ -77,19 +76,19 @@ class HibernateWeatherMeasurmentsDaoTest {
     @Test
     void update() {
 
-        final WeatherMeasurements modifiedWeatherMeasurements = hibernateWeatherMeasurmentsDao.findById(testWeatherMeasurements2.getId());
+        final WeatherMeasurements modifiedWeatherMeasurements = hibernateWeatherMeasurementsDao.findById(testWeatherMeasurements2.getId());
         modifiedWeatherMeasurements.setTemperature(15);
         modifiedWeatherMeasurements.setPressure(30);
         modifiedWeatherMeasurements.setHumidity(45);
         modifiedWeatherMeasurements.setWindSpeed(20);
         modifiedWeatherMeasurements.setWindDirection(110);
 
-        final WeatherMeasurements updatedWeatherMeasurements = hibernateWeatherMeasurmentsDao.update(modifiedWeatherMeasurements);
+        final WeatherMeasurements updatedWeatherMeasurements = hibernateWeatherMeasurementsDao.update(modifiedWeatherMeasurements);
 
         assertEquals(modifiedWeatherMeasurements, updatedWeatherMeasurements);
         assertNotSame(modifiedWeatherMeasurements, updatedWeatherMeasurements);
 
-        final WeatherMeasurements actualWeatherMeasurements = hibernateWeatherMeasurmentsDao.findById(updatedWeatherMeasurements.getId());
+        final WeatherMeasurements actualWeatherMeasurements = hibernateWeatherMeasurementsDao.findById(updatedWeatherMeasurements.getId());
         assertEquals(modifiedWeatherMeasurements, actualWeatherMeasurements);
 
 
@@ -99,7 +98,7 @@ class HibernateWeatherMeasurmentsDaoTest {
     @Test
     void findById() {
 
-        final WeatherMeasurements actualWeatherMeasurements = hibernateWeatherMeasurmentsDao.findById(testWeatherMeasurements1.getId());
+        final WeatherMeasurements actualWeatherMeasurements = hibernateWeatherMeasurementsDao.findById(testWeatherMeasurements1.getId());
 
         assertEquals(testWeatherMeasurements1, actualWeatherMeasurements);
 
@@ -108,23 +107,23 @@ class HibernateWeatherMeasurmentsDaoTest {
     @Test
     void delete() {
 
-        final int expectedSize = hibernateWeatherMeasurmentsDao.getAll().size() - 1;
+        final int expectedSize = hibernateWeatherMeasurementsDao.getAll().size() - 1;
 
-        hibernateWeatherMeasurmentsDao.delete(testWeatherMeasurements1);
+        hibernateWeatherMeasurementsDao.delete(testWeatherMeasurements1);
 
-        final List<WeatherMeasurements> WeatherMeasurementsList = hibernateWeatherMeasurmentsDao.getAll();
+        final List<WeatherMeasurements> WeatherMeasurementsList = hibernateWeatherMeasurementsDao.getAll();
         final int actualSize = WeatherMeasurementsList.size();
         assertEquals(expectedSize, actualSize);
         assertFalse(WeatherMeasurementsList.contains(testWeatherMeasurements1));
 
-        final WeatherMeasurements unexpectedLocation = hibernateWeatherMeasurmentsDao.findById(testWeatherMeasurements1.getId());
+        final WeatherMeasurements unexpectedLocation = hibernateWeatherMeasurementsDao.findById(testWeatherMeasurements1.getId());
         assertNull(unexpectedLocation);
 
     }
 
     @Test
     void getAll() {
-        final List<WeatherMeasurements> WeatherMeasurementsList = hibernateWeatherMeasurmentsDao.getAll();
+        final List<WeatherMeasurements> WeatherMeasurementsList = hibernateWeatherMeasurementsDao.getAll();
 
         assertEquals(2, WeatherMeasurementsList.size());
         assertTrue(WeatherMeasurementsList.contains(testWeatherMeasurements1));
