@@ -48,14 +48,14 @@ class HibernatePollutionMeasurementsDaoTest {
     @Test
     void shouldCreatePollutionMeasurements() {
         PollutionMeasurements testPollutionMeasurements= new PollutionMeasurements();
-        testPollutionMeasurements.setCarbonMonoxide(25);
-        testPollutionMeasurements.setNitrogenMonoxide(1005);
-        testPollutionMeasurements.setNitrogenDioxide(50);
-        testPollutionMeasurements.setOzone(10);
-        testPollutionMeasurements.setSulphurDioxide(19);
-        testPollutionMeasurements.setAmmonia(112);
-        testPollutionMeasurements.setFineParticulateMatter(12);
-        testPollutionMeasurements.setCoarseParticulateMatter(11);
+        testPollutionMeasurements.setCarbonMonoxide(25.99);
+        testPollutionMeasurements.setNitrogenMonoxide(1005.66);
+        testPollutionMeasurements.setNitrogenDioxide(50.55);
+        testPollutionMeasurements.setOzone(10.02);
+        testPollutionMeasurements.setSulphurDioxide(19.45);
+        testPollutionMeasurements.setAmmonia(112.54);
+        testPollutionMeasurements.setFineParticulateMatter(12.31);
+        testPollutionMeasurements.setCoarseParticulateMatter(11.00);
 
 
 
@@ -72,7 +72,7 @@ class HibernatePollutionMeasurementsDaoTest {
         expectedPollutionMeasurements.setNitrogenMonoxide(testPollutionMeasurements.getNitrogenMonoxide());
         expectedPollutionMeasurements.setNitrogenDioxide(testPollutionMeasurements.getNitrogenDioxide());
         expectedPollutionMeasurements.setOzone(testPollutionMeasurements.getOzone());
-        expectedPollutionMeasurements.setSulphurDioxide(testPollutionMeasurements.getOzone());
+        expectedPollutionMeasurements.setSulphurDioxide(testPollutionMeasurements.getSulphurDioxide());
 
         expectedPollutionMeasurements.setAmmonia(testPollutionMeasurements.getAmmonia());
         expectedPollutionMeasurements.setFineParticulateMatter(testPollutionMeasurements.getFineParticulateMatter());

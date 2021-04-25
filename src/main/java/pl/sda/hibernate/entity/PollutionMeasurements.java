@@ -76,15 +76,13 @@ public class PollutionMeasurements {
         this.nitrogenDioxide = nitrogenDioxide;
     }
 
-    public double getOzone() {
-        return ozone;
-    }
+    public double getOzone() { return ozone; }
 
     public void setOzone(double ozone) {
         this.ozone = ozone;
     }
 
-    private double getSulphurDioxide() {
+    public double getSulphurDioxide() {
         return sulphurDioxide;
     }
 
